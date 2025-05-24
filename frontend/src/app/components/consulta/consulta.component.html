@@ -1,0 +1,26 @@
+<div class="container mt-4">
+
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <app-cliente-selector
+            (clienteChange)="onClienteChange($event)">
+          </app-cliente-selector>
+
+          <app-consulta-form
+            [clienteId]="clienteId"
+            [cargando]="cargando"
+            (submitConsulta)="onSubmitConsulta($event)">
+          </app-consulta-form>
+
+          <app-respuesta-view
+            [respuesta]="respuesta"
+            [error]="error"
+            [cargando]="cargando">
+          </app-respuesta-view>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

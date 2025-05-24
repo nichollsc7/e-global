@@ -1,0 +1,9 @@
+<div class="cliente-selector">
+  <label for="cliente">Seleccione un cliente:</label>
+  <select id="cliente" [(ngModel)]="clienteSeleccionado" (change)="onClienteChange($event)" class="form-control">
+    <option value="">Seleccione un cliente</option>
+    <option *ngFor="let cliente of clientes" [value]="cliente.id">
+      {{cliente.nombre}}
+    </option>
+  </select>
+</div>

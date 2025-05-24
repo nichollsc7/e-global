@@ -1,0 +1,30 @@
+{
+    "sla_servicio": {
+        "tiempos_respuesta": {
+            "urgencia_alta": 3600,
+            "urgencia_media": 14400,
+            "urgencia_baja": 86400,
+            "consulta_general": 172800,
+            "reclamo": 259200,
+            "sugerencia": 432000
+        },
+        "disponibilidad": {
+            "servicio_principal": 99.9,
+            "servicio_secundario": 99.5,
+            "horario_24_7": true,
+            "dias_habiles": true
+        },
+        "metricas": {
+            "tiempo_resolucion_promedio": 7200,
+            "satisfaccion_minima": 4.5,
+            "tasa_resolucion_primera_llamada": 0.85,
+            "tiempo_espera_maximo": 300
+        },
+        "limites_operativos": {
+            "transferencia_diaria": 50000,
+            "transferencia_mensual": 500000,
+            "tiempo_bloqueo": 86400,
+            "tiempo_desbloqueo": 3600
+        }
+    }
+} 

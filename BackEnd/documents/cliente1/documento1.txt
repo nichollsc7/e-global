@@ -1,0 +1,32 @@
+Información sobre productos financieros:
+
+1. Cuenta de Ahorros
+- Tasa de interés: 2.5% anual
+- Saldo mínimo: $100
+- Sin comisiones mensuales
+- Acceso a banca en línea
+- Límite de transferencia diario: $50,000
+- Límite de transferencia mensual: $500,000
+
+2. Tarjeta de Crédito
+- Línea desde $5,000
+- Tasa anual: 35%
+- Programa de recompensas
+- Seguro de compras
+- Límite de compras diario: $20,000
+- Límite de compras mensual: $100,000
+
+3. Préstamo Personal
+- Monto máximo: $100,000
+- Plazo: hasta 60 meses
+- Tasa desde 15% anual
+- Sin aval para montos menores a $50,000
+- Tiempo de aprobación: 24 horas
+- Comisión por apertura: 2%
+
+4. Inversiones
+- Certificados de depósito desde $10,000
+- Tasa de rendimiento: 8% anual
+- Plazos: 30, 60, 90, 180 y 360 días
+- Sin penalización por retiro anticipado
+- Reinversión automática disponible 

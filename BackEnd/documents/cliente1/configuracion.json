@@ -1,0 +1,26 @@
+{
+    "configuracion_cuenta": {
+        "limites_transferencia": {
+            "diario": 50000,
+            "mensual": 500000,
+            "internacional": 10000
+        },
+        "notificaciones": {
+            "email": true,
+            "sms": true,
+            "push": true,
+            "alertas_transferencia": true
+        },
+        "preferencias_seguridad": {
+            "autenticacion_dos_factores": true,
+            "biometria": true,
+            "token_fisico": false
+        },
+        "servicios_adicionales": {
+            "banca_en_linea": true,
+            "banca_movil": true,
+            "pago_servicios": true,
+            "transferencias_internacionales": true
+        }
+    }
+} 

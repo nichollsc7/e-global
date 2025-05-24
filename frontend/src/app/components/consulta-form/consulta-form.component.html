@@ -1,0 +1,20 @@
+<form (ngSubmit)="onSubmit()" class="consulta-form">
+  <div class="form-group">
+    <label for="pregunta">Ingrese su pregunta:</label>
+    <textarea
+      id="pregunta"
+      [(ngModel)]="pregunta"
+      name="pregunta"
+      class="form-control"
+      rows="3"
+      [disabled]="!clienteId || cargando"
+      placeholder="Escriba su pregunta aquí..."
+      required></textarea>
+  </div>
+  <button 
+    type="submit" 
+    class="btn btn-primary"
+    [disabled]="!clienteId || !pregunta.trim() || cargando">
+    {{ cargando ? 'Enviando...' : 'Enviar Consulta' }}
+  </button>
+</form>

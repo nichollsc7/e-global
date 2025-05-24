@@ -1,0 +1,26 @@
+<div class="app-container">
+  <div class="mouse-border"></div>
+  <div class="content-wrapper">
+    <h1 class="main-title">Sistema de Consultas</h1>
+    
+    <div class="card">
+      <div class="card-body">
+        <app-cliente-selector
+          (clienteChange)="onClienteChange($event)">
+        </app-cliente-selector>
+
+        <app-consulta-form
+          [clienteId]="clienteId"
+          [cargando]="cargando"
+          (submitConsulta)="onSubmitConsulta($event)">
+        </app-consulta-form>
+
+        <app-respuesta-view
+          [respuesta]="respuesta"
+          [error]="error"
+          [cargando]="cargando">
+        </app-respuesta-view>
+      </div>
+    </div>
+  </div>
+</div>

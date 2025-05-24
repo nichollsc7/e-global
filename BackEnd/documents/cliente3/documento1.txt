@@ -1,0 +1,33 @@
+Procedimientos de Atención al Cliente:
+
+1. Canales de Atención
+- Línea telefónica: 24/7
+- Chat en línea: 8:00 - 20:00
+- Correo electrónico: respuesta en 24h
+- Redes sociales: respuesta en 4h
+- App móvil: 24/7
+- Sucursales: 9:00 - 18:00
+
+2. Niveles de Soporte
+- Nivel 1: Consultas generales (respuesta en 1h)
+- Nivel 2: Problemas técnicos (respuesta en 4h)
+- Nivel 3: Especialistas (respuesta en 8h)
+- Nivel 4: Gerencia (respuesta en 24h)
+- Escalamiento automático después de 2 intentos
+- Seguimiento de casos por 30 días
+
+3. Tiempos de Respuesta
+- Urgencia Alta: 1 hora
+- Urgencia Media: 4 horas
+- Urgencia Baja: 24 horas
+- Consultas generales: 48 horas
+- Reclamos: 72 horas
+- Sugerencias: 5 días hábiles
+
+4. Límites y Restricciones
+- Límite de transferencia diario: $50,000
+- Límite de transferencia mensual: $500,000
+- Bloqueo temporal: 24 horas
+- Desbloqueo: 1 hora
+- Verificación adicional: 30 minutos
+- Proceso de reclamo: 72 horas 

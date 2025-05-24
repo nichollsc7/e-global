@@ -1,0 +1,251 @@
+// Variables
+$primary-color: #062492;
+$primary-light: lighten($primary-color, 15%);
+$primary-dark: darken($primary-color, 10%);
+$shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+$shadow-md: 0 4px 6px rgba(0, 0, 0, 0.15);
+$shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.2);
+$shadow-hover: 0 15px 30px rgba(6, 36, 146, 0.25);
+
+// Animaciones
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+@keyframes borderGlow {
+  0% { 
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.4),
+                0 0 10px rgba(255, 255, 255, 0.2);
+  }
+  50% { 
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.6),
+                0 0 20px rgba(255, 255, 255, 0.3);
+  }
+  100% { 
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.4),
+                0 0 10px rgba(255, 255, 255, 0.2);
+  }
+}
+
+// Patrón de panal mejorado
+@keyframes honeycomb {
+  0% { background-position: 0 0; }
+  100% { background-position: 100px 173.2px; }
+}
+
+.app-container {
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  background: $primary-color;
+  overflow: hidden;
+  
+  // Patrón de panal mejorado
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      radial-gradient(circle at 50% 50%, 
+        rgba(255, 255, 255, 0.1) 0%,
+        transparent 50%
+      ),
+      linear-gradient(60deg, 
+        rgba(0, 0, 0, 0.2) 25%, 
+        transparent 25.5%, 
+        transparent 75%, 
+        rgba(0, 0, 0, 0.2) 75%, 
+        rgba(0, 0, 0, 0.2)
+      ),
+      linear-gradient(120deg, 
+        rgba(0, 0, 0, 0.2) 25%, 
+        transparent 25.5%, 
+        transparent 75%, 
+        rgba(0, 0, 0, 0.2) 75%, 
+        rgba(0, 0, 0, 0.2)
+      );
+    background-size: 100px 173.2px, 100px 173.2px, 100px 173.2px;
+    background-position: 0 0, 0 0, 50px 86.6px;
+    animation: honeycomb 30s linear infinite;
+    opacity: 0.6;
+    z-index: 1;
+  }
+
+  // Sombreado de los hexágonos
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      radial-gradient(circle at 50% 50%, 
+        rgba(255, 255, 255, 0.15) 0%,
+        transparent 50%
+      ),
+      linear-gradient(60deg, 
+        rgba(0, 0, 0, 0.3) 25%, 
+        transparent 25.5%, 
+        transparent 75%, 
+        rgba(0, 0, 0, 0.3) 75%, 
+        rgba(0, 0, 0, 0.3)
+      ),
+      linear-gradient(120deg, 
+        rgba(0, 0, 0, 0.3) 25%, 
+        transparent 25.5%, 
+        transparent 75%, 
+        rgba(0, 0, 0, 0.3) 75%, 
+        rgba(0, 0, 0, 0.3)
+      );
+    background-size: 100px 173.2px, 100px 173.2px, 100px 173.2px;
+    background-position: 0 0, 0 0, 50px 86.6px;
+    z-index: 2;
+  }
+}
+
+.mouse-border {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 3;
+  will-change: transform;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: radial-gradient(circle, 
+      rgba(255, 255, 255, 0.2) 0%,
+      rgba(255, 255, 255, 0.1) 40%,
+      transparent 60%
+    );
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease-out;
+    will-change: transform;
+    backdrop-filter: none;
+  }
+}
+
+.content-wrapper {
+  position: relative;
+  z-index: 4;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.main-title {
+  text-align: center;
+  color: white;
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 3rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.2),
+    0 4px 8px rgba(0, 0, 0, 0.2),
+    0 8px 16px rgba(0, 0, 0, 0.2);
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(90deg, 
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.8) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    border-radius: 2px;
+  }
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: none;
+  border-radius: 12px;
+  box-shadow: $shadow-lg;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: $shadow-hover;
+  }
+}
+
+// Estilos para el contenido del router-outlet
+:host ::ng-deep {
+  .form-control {
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid rgba($primary-color, 0.2);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    
+    &:focus {
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+    }
+  }
+  
+  .btn-primary {
+    background: linear-gradient(135deg, $primary-light, $primary-color);
+    border: none;
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: $shadow-md;
+    transition: all 0.3s ease;
+    
+    &:hover:not(:disabled) {
+      background: linear-gradient(135deg, $primary-color, $primary-dark);
+      transform: translateY(-2px);
+      box-shadow: $shadow-hover;
+    }
+  }
+}
+
+// Efecto de seguimiento del mouse optimizado
+@media (hover: hover) {
+  .app-container {
+    &:hover .mouse-border::before {
+      animation: none;
+    }
+  }
+  
+  .mouse-border::before {
+    left: var(--mouse-x, 50%);
+    top: var(--mouse-y, 50%);
+  }
+}

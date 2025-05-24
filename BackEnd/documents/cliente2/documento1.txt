@@ -1,0 +1,33 @@
+Políticas de Seguridad y Privacidad:
+
+1. Protección de Datos
+- Encriptación de datos sensibles (AES-256)
+- Almacenamiento seguro en servidores certificados
+- Cumplimiento GDPR y LGPD
+- Política de retención de datos: 5 años
+- Respaldo diario de información
+- Monitoreo 24/7 de accesos
+
+2. Acceso y Autenticación
+- Autenticación de dos factores obligatoria
+- Contraseñas seguras requeridas (mínimo 12 caracteres)
+- Bloqueo después de 3 intentos fallidos
+- Sesiones con tiempo límite de 30 minutos
+- Tokens de seguridad para operaciones sensibles
+- Verificación biométrica disponible
+
+3. Monitoreo y Auditoría
+- Registro de accesos en tiempo real
+- Alertas de seguridad inmediatas
+- Auditorías trimestrales
+- Respuesta a incidentes en menos de 1 hora
+- Reportes de seguridad mensuales
+- Análisis de comportamiento de usuarios
+
+4. Transferencias y Operaciones
+- Límite de transferencia diario: $50,000
+- Límite de transferencia mensual: $500,000
+- Verificación adicional para montos altos
+- Bloqueo automático de operaciones sospechosas
+- Notificaciones inmediatas de operaciones
+- Historial de operaciones por 12 meses 

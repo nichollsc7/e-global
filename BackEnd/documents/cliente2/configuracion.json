@@ -1,0 +1,31 @@
+{
+    "politicas_seguridad": {
+        "requisitos_contraseña": {
+            "longitud_minima": 12,
+            "requiere_mayusculas": true,
+            "requiere_numeros": true,
+            "requiere_caracteres_especiales": true,
+            "no_permitir_ultimas_3": true,
+            "cambio_obligatorio_dias": 90
+        },
+        "sesiones": {
+            "tiempo_maximo": 1800,
+            "renovacion_automatica": true,
+            "max_sesiones_simultaneas": 2,
+            "cerrar_sesiones_anteriores": true
+        },
+        "auditoria": {
+            "registro_accesos": true,
+            "registro_cambios": true,
+            "retencion_logs": 365,
+            "alertas_tiempo_real": true,
+            "notificaciones_admin": true
+        },
+        "transferencias": {
+            "limite_diario": 50000,
+            "limite_mensual": 500000,
+            "requiere_2fa": true,
+            "notificacion_inmediata": true
+        }
+    }
+} 
