@@ -1,219 +1,172 @@
 # Sistema de Consulta Inteligente
 
-## 🏗️ Arquitectura Hexagonal (Clean Architecture)
+## 📋 Descripción General
+Sistema de consulta inteligente que permite acceder a información específica de cada cliente mediante procesamiento de lenguaje natural. Implementado con FastAPI y React, utilizando arquitectura hexagonal para garantizar escalabilidad y mantenibilidad.
 
-Este proyecto implementa la Arquitectura Hexagonal (también conocida como Clean Architecture) para garantizar una estructura modular, mantenible y escalable. La arquitectura se divide en las siguientes capas:
+## 🎯 Características Principales
+- Búsqueda semántica en documentos
+- Soporte multi-cliente
+- Respuestas precisas y contextuales
+- Procesamiento en tiempo real
+- Integración real con LangChain y Google Gemini (API Key de Google AI Studio, sin costo)
+- Soporte para archivos .txt y .json
 
-### 1. Dominio (Core)
-- **Ubicación**: `src/domain/`
-- **Contenido**: 
-  - Entidades del negocio
-  - Casos de uso
-  - Interfaces de puertos
-- **Responsabilidad**: Contiene la lógica de negocio pura, independiente de frameworks y tecnologías externas.
-
-### 2. Aplicación (Application)
-- **Ubicación**: `src/application/`
-- **Contenido**:
-  - Implementación de casos de uso
-  - Servicios de aplicación
-  - DTOs
-- **Responsabilidad**: Orquesta los casos de uso y coordina el flujo de datos entre el dominio y los adaptadores.
-
-### 3. Adaptadores (Adapters)
-- **Ubicación**: `src/adapters/`
-- **Contenido**:
-  - **Primarios (Entrantes)**:
-    - `primary/http/`: Controladores REST
-    - `primary/api/`: Endpoints de la API
-  - **Secundarios (Salientes)**:
-    - `secondary/document_loader/`: Carga de documentos
-    - `secondary/storage/`: Persistencia de datos
-- **Responsabilidad**: Adapta las tecnologías externas a la lógica de negocio.
-
-### 4. Infraestructura (Infrastructure)
-- **Ubicación**: `src/infrastructure/`
-- **Contenido**:
-  - Configuración de la aplicación
-  - Servicios externos
-  - Utilidades
-- **Responsabilidad**: Proporciona implementaciones concretas de las interfaces definidas en el dominio.
-
-## 🎯 Ventajas de la Arquitectura Hexagonal
-
-1. **Independencia de Frameworks**
-   - El dominio no depende de frameworks externos
-   - Fácil cambio de tecnologías sin afectar la lógica de negocio
-
-2. **Testabilidad**
-   - Facilita la escritura de pruebas unitarias
-   - Permite mockear dependencias externas
-
-3. **Mantenibilidad**
-   - Separación clara de responsabilidades
-   - Código más organizado y fácil de entender
-
-4. **Escalabilidad**
-   - Fácil adición de nuevas funcionalidades
-   - Adaptación a nuevos requerimientos
-
-## 📁 Estructura del Proyecto
+## 🏗️ Arquitectura
+El sistema está implementado siguiendo la arquitectura hexagonal (ports and adapters):
 
 ```
-src/
-├── domain/                    # Capa de dominio
-│   ├── entities/             # Entidades del negocio
-│   ├── use_cases/            # Casos de uso
-│   └── ports/                # Interfaces (puertos)
-│
-├── application/              # Capa de aplicación
-│   ├── services/            # Servicios de aplicación
-│   └── dtos/                # Objetos de transferencia de datos
-│
-├── adapters/                # Capa de adaptadores
-│   ├── primary/             # Adaptadores primarios (entrantes)
-│   │   ├── http/           # Controladores HTTP
-│   │   └── api/            # Endpoints de la API
-│   │
-│   └── secondary/          # Adaptadores secundarios (salientes)
-│       ├── document_loader/ # Carga de documentos
-│       └── storage/        # Persistencia de datos
-│
-└── infrastructure/          # Capa de infraestructura
-    ├── config/             # Configuración
-    └── utils/              # Utilidades
-
-documents/                   # Documentos de clientes
-├── cliente1/
-├── cliente2/
-└── cliente3/
+BackEnd/
+├── app/
+│   ├── api/
+│   ├── models/
+│   ├── services/
+│   └── utils/
+├── documents/
+├── requirements.txt
+├── README.md
+├── .env.example
 ```
 
-## 🚀 Ejecución del Proyecto
+## 🤖 Integración RAG+LLM Real con LangChain y Google Gemini (API Key de Google AI Studio)
+El sistema utiliza un pipeline real de Recuperación Aumentada por Generación (RAG) con LangChain y Google Gemini (API Key gratuita de Google AI Studio):
 
-1. Instalar dependencias:
+- Recupera fragmentos relevantes de los documentos del cliente
+- Usa búsqueda simple por coincidencia de palabras para simular RAG
+- Genera la respuesta final usando un modelo LLM real (Gemini) a través de LangChain y Google AI Studio
+- Sin costos de Vertex AI, ideal para pruebas y prototipos
+- **Actualmente se utiliza el modelo `gemini-2.0-flash-lite`, que permite hasta 30 requests por minuto gratis**
+
+### Instalación de dependencias
+
 ```bash
-pip install -r requirements.txt
+pip install langchain langchain-google-genai faiss-cpu tiktoken python-dotenv
 ```
 
-2. Configurar variables de entorno:
-```bash
-cp .env.example .env
-```
+### Configuración de la API Key de Google AI Studio
 
-3. Ejecutar la aplicación:
-```bash
-python src/main.py
-```
+1. Ve a https://aistudio.google.com/app/apikey y genera tu API Key gratuita.
+2. Renombra el archivo `.env.example` a `.env`.
+3. Agrega tu API Key en el archivo `.env` así:
+   ```
+   GOOGLE_API_KEY=tu_api_key_de_ai_studio
+   ```
+4. **Nota:** El archivo `.env` está en el `.gitignore` y **no se sube al repositorio**. Cada evaluador debe generar y agregar su propia API Key.
 
-## 📝 Ejemplos de Uso
+## ⚠️ Advertencia sobre límites de la API Key gratuita
+- La API Key gratuita de Google AI Studio tiene **límites** de uso (tokens y solicitudes por minuto y por día).
+- El modelo `gemini-2.0-flash-lite` permite hasta **30 requests por minuto gratis**.
+- Si haces muchas pruebas seguidas, puedes recibir errores 429 (Too Many Requests) como:
+  ```
+  429 You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits.
+  ```
+- **Solución:** Espera unos minutos y vuelve a probar. Los límites se reinician cada minuto y cada día.
+- No es posible aumentar el límite en la API Key gratuita. Si necesitas más capacidad, solo es posible con una cuenta de Google Cloud y Vertex AI (de pago).
+- Consulta los límites oficiales aquí: [https://ai.google.dev/gemini-api/docs/rate-limits](https://ai.google.dev/gemini-api/docs/rate-limits)
 
-### Consulta a Cliente 1 (Productos Financieros)
+## 📄 Soporte de Documentos
+El sistema soporta búsqueda en documentos con:
+
+- Archivos `.txt` y `.json`
+- Estructura de documentos por cliente
+- Búsqueda semántica en contenido (simulada)
+- Respuestas contextuales basadas en el tipo de documento
+
+### Ejemplo de Estructura de Documentos
 ```json
-POST /api/v1/consulta
+{
+    "cliente1": {
+        "cuentas.txt": [
+            "Tasa de interés: 2.5% anual",
+            "Saldo mínimo: $1,000"
+        ],
+        "tarjetas.json": {
+            "límites": ["$5,000", "$10,000"],
+            "beneficios": ["Cashback 2%"]
+        }
+    }
+}
+```
+
+## 👥 Clientes Disponibles
+
+### 1️⃣ Cliente 1 - Productos Financieros
+| Categoría | Temas Disponibles |
+|-----------|-------------------|
+| 💰 Cuentas | Tasas de interés, saldos mínimos, beneficios |
+| 💳 Tarjetas | Límites, beneficios, requisitos |
+| 📊 Préstamos | Tasas, plazos, requisitos |
+| 📈 Inversiones | Certificados, rendimientos |
+| 💸 Transferencias | Límites diarios y mensuales |
+| 🏦 Servicios | Banca en línea, móvil |
+
+### 2️⃣ Cliente 2 - Seguridad y Privacidad
+| Categoría | Temas Disponibles |
+|-----------|-------------------|
+| 🔒 Seguridad | Políticas, protocolos, estándares |
+| 🔑 Acceso | Contraseñas, autenticación |
+| 📊 Auditoría | Monitoreo, registros |
+| 🛡️ Protección | Datos, transacciones |
+| ⚖️ Límites | Operaciones, transferencias |
+| 📱 Dispositivos | Móvil, token |
+
+### 3️⃣ Cliente 3 - Atención al Cliente
+| Categoría | Temas Disponibles |
+|-----------|-------------------|
+| 📞 Canales | Teléfono, chat, email, redes |
+| ⏱️ Tiempos | Respuesta, resolución |
+| 🎯 SLA | Métricas, objetivos |
+| 📊 Soporte | Niveles, especialistas |
+| ⚙️ Operaciones | Límites, procesos |
+| 📝 Reclamos | Procesos, seguimiento |
+
+## 📝 Ejemplos de Consultas
+
+### 💰 Consultas Financieras (Cliente 1)
+```json
 {
     "cliente_id": "cliente1",
     "pregunta": "¿Cuál es la tasa de interés de la cuenta de ahorros?"
 }
 ```
-
-### Consulta a Cliente 2 (Seguridad)
+**Respuesta:**
 ```json
-POST /api/v1/consulta
+{
+    "respuesta": "Tasa de interés: 2.5% anual"
+}
+```
+
+### 🔒 Consultas de Seguridad (Cliente 2)
+```json
 {
     "cliente_id": "cliente2",
     "pregunta": "¿Cuáles son los requisitos de contraseña?"
 }
 ```
-
-### Consulta a Cliente 3 (Atención al Cliente)
+**Respuesta:**
 ```json
-POST /api/v1/consulta
 {
-    "cliente_id": "cliente3",
-    "pregunta": "¿Cuáles son los tiempos de respuesta para urgencia alta?"
+    "respuesta": "Longitud mínima: 12 caracteres, requiere mayúsculas, números y caracteres especiales"
 }
 ```
 
-## 🔧 Tecnologías Utilizadas
+## ⚙️ Notas Técnicas
+- Pipeline RAG+LLM real con LangChain y Google Gemini (API Key de Google AI Studio)
+- Búsqueda semántica simulada (por coincidencia de palabras)
+- 📄 Formatos soportados: .txt y .json
+- 🔄 Consultas flexibles entre clientes
+- 📊 Respuestas consistentes en límites
+- 🔍 Búsqueda semántica básica
+- Sin costos de Vertex AI
+- **Modelo usado: `gemini-2.0-flash-lite` (30 requests por minuto gratis)**
 
-- FastAPI
-- Python 3.8+
-- Uvicorn
-- Pydantic
-- Swagger UI
+## 🚀 Códigos de Respuesta
+| Código | Descripción |
+|--------|-------------|
+| 200 | ✅ Consulta exitosa |
+| 400 | ❌ Error en la consulta |
 
-## 📚 Documentación API
-
-- Swagger UI: `http://localhost:8000/docs`
-- ReDoc: `http://localhost:8000/redoc`
-
-## 👥 Clientes y Documentos Disponibles
-
-El sistema incluye tres clientes preconfigurados con sus respectivos documentos:
-
-### Cliente 1: Productos Financieros
-- **documento1.txt**: Información sobre productos financieros (cuentas, tarjetas, préstamos)
-- **configuracion.json**: Configuración de cuenta y preferencias
-
-### Cliente 2: Seguridad y Privacidad
-- **documento1.txt**: Políticas de seguridad y privacidad
-- **configuracion.json**: Configuración de políticas de seguridad
-
-### Cliente 3: Atención al Cliente
-- **documento1.txt**: Procedimientos de atención al cliente
-- **configuracion.json**: SLA y métricas de servicio
-
-## 🔄 Endpoints
-
-### POST /api/v1/consulta
-
-```json
-{
-  "cliente_id": "string",
-  "pregunta": "string"
-}
-```
-
-## 📝 Contenido de los Documentos
-
-### Cliente 1 - Productos Financieros
-- Cuenta de Ahorros (tasa 2.5% anual)
-- Tarjeta de Crédito (línea desde $5,000)
-- Préstamo Personal (hasta $100,000)
-- Configuración de límites y notificaciones
-
-### Cliente 2 - Seguridad
-- Protección de Datos
-- Acceso y Autenticación
-- Monitoreo y Auditoría
-- Políticas de contraseñas y sesiones
-
-### Cliente 3 - Atención al Cliente
-- Canales de Atención (24/7)
-- Niveles de Soporte
-- Tiempos de Respuesta
-- SLA y métricas de servicio
-
-## 🛠️ Tecnologías Utilizadas
-
-- FastAPI: Framework web moderno y rápido
-- Pydantic: Validación de datos
-- Python-dotenv: Manejo de variables de entorno
-- Uvicorn: Servidor ASGI
-
-## 🔍 Características
-
-- ✅ Endpoint REST para consultas
-- ✅ Soporte multicliente
-- ✅ Búsqueda en documentos .txt y .json
-- ✅ Validación de datos
-- ✅ Documentación automática
-- ✅ CORS habilitado para desarrollo frontend
-
-## ⚠️ Notas Importantes
-
-1. El sistema simula un modelo de lenguaje con un delay de 1.5 segundos
-2. Las respuestas se basan en búsqueda de texto en los documentos
-3. Se soportan archivos .txt y .json
-4. Los IDs de cliente deben coincidir exactamente con los nombres de las carpetas
+## 📌 Consideraciones
+- Los IDs de cliente deben coincidir exactamente con los nombres de las carpetas
+- Las consultas son case-insensitive
+- Se soportan preguntas en lenguaje natural
+- Las respuestas son contextuales al cliente

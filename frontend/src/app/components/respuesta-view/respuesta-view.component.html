@@ -25,12 +25,12 @@
           </h5>
         </div>
         <div class="respuesta-content">
-          <p class="card-text">{{ respuesta.respuesta }}</p>
+          <p class="card-text" [innerHTML]="safeContent"></p>
         </div>
         <div class="respuesta-footer">
-          <p *ngIf="respuesta.documento_fuente" class="card-text fuente">
-            <i class="fas fa-file-alt me-2"></i>
-            <small class="text-muted">Fuente: {{ respuesta.documento_fuente }}</small>
+          <p *ngIf="modelName" class="card-text model-name">
+            <i class="fas fa-robot me-2"></i>
+            <small class="text-muted">Modelo: {{ modelName }}</small>
           </p>
         </div>
       </div>

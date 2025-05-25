@@ -50,28 +50,26 @@ export class AppComponent implements OnInit {
     this.resetConsulta();
   }
 
-  onSubmitConsulta(consulta: Consulta): void {
+  async onSubmitConsulta(consulta: Consulta): Promise<void> {
     this.cargando = true;
     this.error = null;
     this.respuesta = null;
 
-    this.consultaService.consultar(consulta).subscribe({
-      next: (respuesta: Respuesta) => {
-        this.respuesta = respuesta;
-        this.cargando = false;
-      },
-      error: (error) => {
-        console.error('Error completo:', error);
-        if (error.status === 0) {
-          this.error = 'No se pudo conectar con el servidor. Verifique que el backend esté corriendo.';
-        } else if (error.status === 403) {
-          this.error = 'Error de CORS. Verifique la configuración del backend.';
-        } else {
-          this.error = error.message || 'Error al procesar la consulta. Por favor, intente nuevamente.';
-        }
-        this.cargando = false;
+    try {
+      const respuesta = await this.consultaService.consultar(consulta);
+      this.respuesta = respuesta;
+      this.cargando = false;
+    } catch (error: any) {
+      console.error('Error completo:', error);
+      if (error.status === 0) {
+        this.error = 'No se pudo conectar con el servidor. Verifique que el backend esté corriendo.';
+      } else if (error.status === 403) {
+        this.error = 'Error de CORS. Verifique la configuración del backend.';
+      } else {
+        this.error = error.message || 'Error al procesar la consulta. Por favor, intente nuevamente.';
       }
-    });
+      this.cargando = false;
+    }
   }
 
   private resetConsulta(): void {

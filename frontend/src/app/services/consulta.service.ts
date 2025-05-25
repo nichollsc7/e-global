@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Observable, of, throwError, firstValueFrom } from 'rxjs';
+import { catchError, switchMap, tap } from 'rxjs/operators';
+import { Respuesta } from '../models/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -19,16 +20,14 @@ export class ConsultaService {
 
   constructor(private http: HttpClient) {}
 
-  consultar(data: { cliente_id: string; pregunta: string }): Observable<any> {
+  async consultar(data: { cliente_id: string; pregunta: string }): Promise<Respuesta> {
     if (!this.CLIENTES_VALIDOS.includes(data.cliente_id)) {
-      return throwError(() => new Error('El cliente_id debe ser uno de: cliente1, cliente2, cliente3'));
+      throw new Error('El cliente_id debe ser uno de: cliente1, cliente2, cliente3');
     }
-
-    return this.http.post(this.apiUrl, data, this.httpOptions).pipe(
-      catchError(error => {
-        console.error('Error en la consulta:', error);
-        return throwError(() => new Error(error.error?.message || 'Error al procesar la consulta'));
-      })
+    const response = await firstValueFrom(
+      this.http.post<{ respuesta: Respuesta }>(this.apiUrl, data, this.httpOptions)
     );
+    console.log('Respuesta de la API:', response);
+    return response.respuesta;
   }
 }
